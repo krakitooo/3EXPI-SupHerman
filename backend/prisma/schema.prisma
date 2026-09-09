@@ -2,11 +2,57 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  EMPLOYE
+  MANAGER
+  COMPTABILITE
+}
+
+enum StatutNote {
+  CREEE
+  VALIDEE
+  REFUSEE
+  TRAITEE
+}
+
+model User {
+  id                 Int       @id @default(autoincrement())
+  email              String    @unique
+  passwordHash       String?
+  role               Role
+  inviteTokenHash    String?
+  inviteTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  expenseReports     ExpenseReport[]
+}
+
+model ExpenseReport {
+  id             Int          @id @default(autoincrement())
+  title          String
+  comment        String?
+  status         StatutNote   @default(CREEE)
+  submissionDate DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  userId         Int
+  user           User         @relation(fields: [userId], references: [id])
+  attachments    Attachment[]
+}
+
+model Attachment {
+  id              Int           @id @default(autoincrement())
+  originalName    String
+  storedName      String
+  mimeType        String
+  size            Int
+  expenseReportId Int
+  expenseReport   ExpenseReport @relation(fields: [expenseReportId], references: [id], onDelete: Cascade)
 }
