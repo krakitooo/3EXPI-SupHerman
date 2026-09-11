@@ -2,4 +2,5 @@ node_modules/
 .env
 backend/prisma/dev.db*
 backend/uploads/*
+!backend/uploads/.gitkeep
 frontend/dist/
