@@ -5,4 +5,8 @@ const createExpenseSchema = z.object({
   comment: z.string().max(2000).optional(),
 });
 
-module.exports = { createExpenseSchema };
+const updateStatusSchema = z.object({
+  status: z.enum(["VALIDEE", "REFUSEE", "TRAITEE"]),
+});
+
+module.exports = { createExpenseSchema, updateStatusSchema };

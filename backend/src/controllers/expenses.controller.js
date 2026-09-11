@@ -1,5 +1,5 @@
 const path = require("path");
-const { createExpenseSchema } = require("../validators/expenses.validators");
+const { createExpenseSchema, updateStatusSchema } = require("../validators/expenses.validators");
 const expensesService = require("../services/expenses.service");
 
 async function createExpenseController(req, res, next) {
@@ -58,9 +58,39 @@ async function downloadAttachmentController(req, res, next) {
     }
 }
 
+async function getAllExpensesController(req, res, next) {
+  try {
+    const reports = await expensesService.getAllExpenseReports(req.user);
+    res.json(reports);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function updateStatusController(req, res, next) {
+  try {
+    const id = Number(req.params.id);
+    if (Number.isNaN(id)) {
+      return res.status(400).json({ message: "Identifiant invalide" });
+    }
+
+    const parsed = updateStatusSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ message: "Données invalides", errors: parsed.error.issues });
+    }
+
+    const report = await expensesService.updateExpenseStatus(id, parsed.data.status, req.user);
+    res.json(report);
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
-    createExpenseController,
-    getMyExpensesController,
-    getExpenseByIdController,
-    downloadAttachmentController,
+  createExpenseController,
+  getMyExpensesController,
+  getExpenseByIdController,
+  downloadAttachmentController,
+  getAllExpensesController,
+  updateStatusController,
 };
