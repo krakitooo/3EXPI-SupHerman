@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from '../features/auth/LoginPage.jsx'
 import SetPasswordPage from '../features/auth/SetPasswordPage.jsx'
 import CreateAccountPage from '../features/users/CreateAccountPage.jsx'
+import ProfilePage from '../features/users/ProfilePage.jsx'
 import MyExpensesPage from '../features/expenses/MyExpensesPage.jsx'
 import CreateExpensePage from '../features/expenses/CreateExpensePage.jsx'
 import AllExpensesPage from '../features/expenses/AllExpensesPage.jsx'
@@ -18,6 +19,7 @@ function AppRouter() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<MyExpensesPage />} />
           <Route path="/expenses/new" element={<CreateExpensePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
 
           <Route element={<ProtectedRoute allowedRoles={['MANAGER', 'COMPTABILITE']} />}>
             <Route path="/expenses/all" element={<AllExpensesPage />} />
