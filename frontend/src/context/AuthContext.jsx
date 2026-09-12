@@ -1,19 +1,40 @@
 import { createContext, useContext, useState } from 'react'
+import { setAuthToken } from '../api/axiosClient.js'
 
 const AuthContext = createContext(null)
 
+function loadStoredAuth() {
+  try {
+    const token = localStorage.getItem('token')
+    const userRaw = localStorage.getItem('user')
+    if (!token || !userRaw) return { token: null, user: null }
+    return { token, user: JSON.parse(userRaw) }
+  } catch {
+    return { token: null, user: null }
+  }
+}
+
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(null)
-  const [user, setUser] = useState(null)
+  const [{ token, user }, setAuthState] = useState(() => {
+    const stored = loadStoredAuth()
+    if (stored.token) {
+      setAuthToken(stored.token)
+    }
+    return stored
+  })
 
   function login(newToken, newUser) {
-    setToken(newToken)
-    setUser(newUser)
+    localStorage.setItem('token', newToken)
+    localStorage.setItem('user', JSON.stringify(newUser))
+    setAuthToken(newToken)
+    setAuthState({ token: newToken, user: newUser })
   }
 
   function logout() {
-    setToken(null)
-    setUser(null)
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    setAuthToken(null)
+    setAuthState({ token: null, user: null })
   }
 
   return (

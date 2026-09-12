@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button, TextField, Typography, Alert, Stack } from '@mui/material'
 import { loginRequest } from '../../api/authApi.js'
-import { setAuthToken } from '../../api/axiosClient.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 
 function LoginPage() {
@@ -19,7 +18,6 @@ function LoginPage() {
         setLoading(true)
         try {
             const { token, user } = await loginRequest(email, password)
-            setAuthToken(token)
             login(token, user)
             navigate('/')
         } catch (err) {
