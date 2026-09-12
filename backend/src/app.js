@@ -4,10 +4,12 @@ const errorMiddleware = require("./middlewares/error.middleware");
 const routes = require("./routes");
 const path = require("path");
 const frontendPath = path.join(__dirname, "../../frontend/dist");
+const helmet = require("helmet");
 
 const app = express();
 
-app.use(cors());
+app.use(helmet());
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
