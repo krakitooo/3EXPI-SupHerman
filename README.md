@@ -56,7 +56,7 @@ Les comptes Employé et Comptabilité se créent depuis l'application via ce com
 
 ### Connexion
 
-Un compte ne peut pas s'auto-créer, il doit être créé par un Manager. À la création, aucun mot de passe n'est défini, un lien d'invitation est généré et doit être transmis manuellement à la personne concernée (par exemple via Slack), qui l'utilise pour choisir son mot de passe avant de pouvoir se connecter.
+Un compte ne peut pas s'auto-créer, il doit être créé par un Manager. À la création, aucun mot de passe n'est défini, un lien d'invitation est généré et doit être transmis manuellement à la personne concernée (par exemple via Slack), qui l'utilise pour choisir son mot de passe avant de pouvoir se connecter. Dans un contexte réel d'entreprise, un mail serait envoyé automatiquement à la personne, plutôt que d'afficher le lien et le token au manager.
 
 ### Employé
 
