@@ -57,33 +57,35 @@ function MyExpensesPage() {
       )}
 
       {!loading && !error && expenses.length > 0 && (
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>Titre</TableCell>
-              <TableCell>Statut</TableCell>
-              <TableCell>Date de soumission</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {expenses.map((expense) => (
-              <TableRow
-                key={expense.id}
-                hover
-                onClick={() => setSelectedId(expense.id)}
-                sx={{ cursor: 'pointer' }}
-              >
-                <TableCell>{expense.title}</TableCell>
-                <TableCell>
-                  <StatusBadge status={expense.status} />
-                </TableCell>
-                <TableCell>
-                  {new Date(expense.submissionDate).toLocaleDateString('fr-FR')}
-                </TableCell>
+        <Box sx={{ overflowX: 'auto' }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Titre</TableCell>
+                <TableCell>Statut</TableCell>
+                <TableCell>Date de soumission</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {expenses.map((expense) => (
+                <TableRow
+                  key={expense.id}
+                  hover
+                  onClick={() => setSelectedId(expense.id)}
+                  sx={{ cursor: 'pointer' }}
+                >
+                  <TableCell>{expense.title}</TableCell>
+                  <TableCell>
+                    <StatusBadge status={expense.status} />
+                  </TableCell>
+                  <TableCell>
+                    {new Date(expense.submissionDate).toLocaleDateString('fr-FR')}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       )}
 
       <ExpenseDetailModal

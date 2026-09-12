@@ -103,7 +103,11 @@ function AllExpensesPage() {
             )
         }
 
-        return null
+        return (
+            <Typography variant="body2" color="text.disabled">
+                -
+            </Typography>
+        )
     }
 
     return (
@@ -122,39 +126,41 @@ function AllExpensesPage() {
             )}
 
             {!loading && !error && expenses.length > 0 && (
-                <Table size="small">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Titre</TableCell>
-                            <TableCell>Employé</TableCell>
-                            <TableCell>Statut</TableCell>
-                            <TableCell>Date de soumission</TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {expenses.map((expense) => (
-                            <TableRow
-                                key={expense.id}
-                                hover
-                                onClick={() => setSelectedId(expense.id)}
-                                sx={{ cursor: 'pointer' }}
-                            >
-                                <TableCell>{expense.title}</TableCell>
-                                <TableCell>{expense.user?.email}</TableCell>
-                                <TableCell>
-                                    <StatusBadge status={expense.status} />
-                                </TableCell>
-                                <TableCell>
-                                    {new Date(expense.submissionDate).toLocaleDateString('fr-FR')}
-                                </TableCell>
-                                <TableCell onClick={(e) => e.stopPropagation()}>
-                                    {renderActions(expense)}
-                                </TableCell>
+                <Box sx={{ overflowX: 'auto' }}>
+                    <Table size="small">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Titre</TableCell>
+                                <TableCell>Employé</TableCell>
+                                <TableCell>Statut</TableCell>
+                                <TableCell>Date de soumission</TableCell>
+                                <TableCell>Actions</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {expenses.map((expense) => (
+                                <TableRow
+                                    key={expense.id}
+                                    hover
+                                    onClick={() => setSelectedId(expense.id)}
+                                    sx={{ cursor: 'pointer' }}
+                                >
+                                    <TableCell>{expense.title}</TableCell>
+                                    <TableCell>{expense.user?.email}</TableCell>
+                                    <TableCell>
+                                        <StatusBadge status={expense.status} />
+                                    </TableCell>
+                                    <TableCell>
+                                        {new Date(expense.submissionDate).toLocaleDateString('fr-FR')}
+                                    </TableCell>
+                                    <TableCell onClick={(e) => e.stopPropagation()}>
+                                        {renderActions(expense)}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
             )}
 
             <ExpenseDetailModal
