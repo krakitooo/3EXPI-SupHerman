@@ -14,7 +14,7 @@ Application interne de gestion des notes de frais, remplaçant le processus manu
 
 ### .env
 
-Changer le `.emv.example` en `.env` et changer le JWT_SECRET.
+Changer le `backend/.env.example` en `.env` et changer le JWT_SECRET.
 
 ### Docker
 
