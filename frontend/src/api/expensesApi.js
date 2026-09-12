@@ -30,3 +30,11 @@ export async function downloadAttachmentRequest(expenseId, attachmentId, filenam
     link.remove()
     window.URL.revokeObjectURL(url)
 }
+
+export function getAllExpensesRequest() {
+    return axiosClient.get('/expenses/all').then((res) => res.data)
+}
+
+export function updateExpenseStatusRequest(id, status) {
+    return axiosClient.patch(`/expenses/${id}/status`, { status }).then((res) => res.data)
+}

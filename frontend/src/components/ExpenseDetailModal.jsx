@@ -78,7 +78,7 @@ function ExpenseDetailModal({ expenseId, open, onClose }) {
 
                         <Box>
                             <Typography variant="subtitle2" color="text.secondary">Commentaire</Typography>
-                            <Typography variant="body1">{expense.comment || '—'}</Typography>
+                            <Typography variant="body1">{expense.comment || '-'}</Typography>
                         </Box>
 
                         <Box>

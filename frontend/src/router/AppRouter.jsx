@@ -4,6 +4,7 @@ import SetPasswordPage from '../features/auth/SetPasswordPage.jsx'
 import CreateAccountPage from '../features/users/CreateAccountPage.jsx'
 import MyExpensesPage from '../features/expenses/MyExpensesPage.jsx'
 import CreateExpensePage from '../features/expenses/CreateExpensePage.jsx'
+import AllExpensesPage from '../features/expenses/AllExpensesPage.jsx'
 import ProtectedRoute from '../components/ProtectedRoute.jsx'
 import MainLayout from '../layouts/MainLayout.jsx'
 
@@ -17,6 +18,10 @@ function AppRouter() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<MyExpensesPage />} />
           <Route path="/expenses/new" element={<CreateExpensePage />} />
+
+          <Route element={<ProtectedRoute allowedRoles={['MANAGER', 'COMPTABILITE']} />}>
+            <Route path="/expenses/all" element={<AllExpensesPage />} />
+          </Route>
 
           <Route element={<ProtectedRoute allowedRoles={['MANAGER']} />}>
             <Route path="/create-account" element={<CreateAccountPage />} />

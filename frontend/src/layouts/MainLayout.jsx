@@ -25,6 +25,12 @@ function MainLayout() {
                         SUP Herman - Notes de frais
                     </Typography>
 
+                    {['MANAGER', 'COMPTABILITE'].includes(user?.role) && (
+                        <Button component={RouterLink} to="/expenses/all" size="small">
+                            Toutes les notes
+                        </Button>
+                    )}
+
                     {user?.role === 'MANAGER' && (
                         <Button
                             component={RouterLink}
