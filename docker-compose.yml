@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - db-data:/app/backend/prisma
+      - uploads-data:/app/backend/uploads
+    env_file:
+      - backend/.env
+
+volumes:
+  db-data:
+  uploads-data:
